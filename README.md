@@ -4,10 +4,23 @@ Optical character recognition software written in C.
 
 ## Requirements
 
+Debian : 
 - gcc
+````
+sudo apt install gcc 
+````
 - GTK3
+````
+sudo apt-get install libgtk-3-dev
+````
 - SDL2
-- SDL2_image
+````
+sudo apt install libsdl2-dev
+````
+- SDL2_image : 
+````
+sudo apt install libsdl2-image-dev
+````
 
 If you plan to train the network you will also need:
 
