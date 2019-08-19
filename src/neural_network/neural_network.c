@@ -6,6 +6,7 @@
 #include "../utils/math.h"
 #include "../utils/random.h"
 #include "neural_network.h"
+size_t returnError = 0;
 
 static void layer_alloc(struct Layer *layer, size_t nb_in, size_t nb_out)
 {
@@ -84,9 +85,9 @@ struct Network *network_load(const char *filename)
         errx(1, "cannot load network from %s", filename);
 
     size_t nb_layers = 0;
-    fread(&nb_layers, sizeof(size_t), 1, f);
+    returnError = fread(&nb_layers, sizeof(size_t), 1, f);
     size_t *layers_size = malloc(sizeof(size_t) * nb_layers);
-    fread(layers_size, sizeof(size_t) * nb_layers, 1, f);
+    returnError = fread(layers_size, sizeof(size_t) * nb_layers, 1, f);
 
     struct Network *network = network_alloc(nb_layers, layers_size);
     for (size_t i = 0; i < nb_layers; i++)
@@ -98,6 +99,6 @@ struct Network *network_load(const char *filename)
 
     free(layers_size);
     fclose(f);
-
+    (void) returnError;
     return network;
 }

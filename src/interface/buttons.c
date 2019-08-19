@@ -6,7 +6,7 @@
 #include "../preprocessing/preprocessing.h"
 #include "../utils/constants.h"
 #include "buttons.h"
-
+size_t unuseless = 0;
 char current_path_img[128];
 
 void load_button(GtkButton *button, gpointer user_data)
@@ -103,7 +103,7 @@ void ocr_run_button(GtkButton *button, gpointer user_data)
     fseek(f, 0, SEEK_SET);
 
     char *fcontent = malloc(fsize);
-    fread(fcontent, 1, fsize, f);
+    unuseless = fread(fcontent, 1, fsize, f);
 
     GtkTextBuffer *buf = gtk_text_buffer_new(NULL);
     gtk_text_buffer_set_text(buf, fcontent, fsize);
@@ -111,4 +111,5 @@ void ocr_run_button(GtkButton *button, gpointer user_data)
 
     free(fcontent);
     fclose(f);
+    (void) unuseless;
 }

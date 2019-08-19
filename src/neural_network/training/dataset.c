@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "dataset.h"
+size_t returnValues = 0;
 
 struct Dataset *dataset_alloc(size_t nb_examples)
 {
@@ -46,7 +47,7 @@ struct Dataset *dataset_load(const char *filename)
         errx(1, "cannot load dataset from %s", filename);
 
     size_t nb_examples;
-    fread(&nb_examples, sizeof(size_t), 1, f);
+    returnValues = fread(&nb_examples, sizeof(size_t), 1, f);
 
     struct Dataset *dataset = dataset_alloc(nb_examples);
     for (size_t i = 0; i < nb_examples; i++)
@@ -57,7 +58,7 @@ struct Dataset *dataset_load(const char *filename)
     }
 
     fclose(f);
-
+    (void) returnValues;
     return dataset;
 }
 

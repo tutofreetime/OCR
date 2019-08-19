@@ -4,9 +4,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include <gtk/gtk.h>
+#include <gtk-3.0/gtk/gtk.h>
 
 #include "interface/interface.h"
 #include "ocr.h"

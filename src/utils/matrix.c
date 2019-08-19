@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "matrix.h"
+size_t returnValue = 0;
 
 struct Matrix *matrix_alloc(size_t nb_rows, size_t nb_cols)
 {
@@ -28,24 +29,33 @@ void matrix_save(FILE *f, struct Matrix *matrix)
 struct Matrix *matrix_load(FILE *f)
 {
     size_t nb_rows, nb_cols;
-    fread(&nb_rows, sizeof(size_t), 1, f);
-    fread(&nb_cols, sizeof(size_t), 1, f);
+
+    returnValue = fread(&nb_rows, sizeof(size_t), 1, f);
+      
+    returnValue =fread(&nb_cols, sizeof(size_t), 1, f);
 
     struct Matrix *matrix = matrix_alloc(nb_rows, nb_cols);
-    fread(matrix->mat, sizeof(float) * matrix_size(matrix), 1, f);
-
+    
+    returnValue = fread(matrix->mat, sizeof(float) * matrix_size(matrix), 1, f);
+    (void) returnValue;
     return matrix;
 }
 
 void matrix_load_inplace(FILE *f, struct Matrix *matrix)
 {
     size_t nb_rows, nb_cols;
-    fread(&nb_rows, sizeof(size_t), 1, f);
-    fread(&nb_cols, sizeof(size_t), 1, f);
+
+    returnValue  = fread(&nb_rows, sizeof(size_t), 1, f);
+
+    
+    returnValue  = fread(&nb_cols, sizeof(size_t), 1, f);
+
     if (nb_rows != matrix->nb_rows || nb_cols != matrix->nb_cols)
         errx(1, "cannot load inplace (wrong dimensions)");
 
-    fread(matrix->mat, sizeof(float) * matrix_size(matrix), 1, f);
+    returnValue  = fread(matrix->mat, sizeof(float) * matrix_size(matrix), 1, f);
+
+    (void) returnValue;
 }
 
 size_t matrix_size(struct Matrix *matrix)
